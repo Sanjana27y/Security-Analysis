@@ -1,0 +1,383 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    cookies = request.COOKIES
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directory Traversal Tester</title>
+    <script>
+        function testDirectoryTraversal() {
+            // Get the tester directory and user input path from the form
+            var testerDirectory = document.getElementById('testerDirectory').value;
+            var userInputPath = document.getElementById('userInputPath').value;
+
+            // Call the test_directory_traversal function
+            var isDirectoryTraversal = test_directory_traversal(testerDirectory, userInputPath);
+
+            // Display the result
+            var resultElement = document.getElementById('result');
+            if (isDirectoryTraversal) {
+                resultElement.textContent = 'Directory traversal detected!';
+            } else {
+                resultElement.textContent = 'No directory traversal detected.';
+            }
+        }
+    </script>
+</head>
+<body>
+    {% csrf_token %}
+    <h1>Directory Traversal Tester</h1>
+    <form onsubmit="event.preventDefault(); testDirectoryTraversal();">
+        <label for="testerDirectory">Tester Directory:</label>
+        <input type="text" id="testerDirectory" placeholder="/path/to/your/tester/directory" required>
+        <br>
+        <label for="userInputPath">User Input Path:</label>
+        <input type="text" id="userInputPath" placeholder="/files/../important_file.txt" required>
+        <br>
+        <button type="submit">Test Directory Traversal</button>
+    </form>
+    <div id="result"></div>
+</body>
+</html> {% endcomment %}
+
+ <!-- templates/analysis_results.html -->
+
+
+
+ {% comment %} this below code was working at 20/12/23 at 3pm {% endcomment %}
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results</title>
+</head>
+<body>
+    {% csrf_token %}
+    <h1>Security Analysis Results</h1>
+
+    <div id="resultContainer">
+        <!-- Results will be displayed here -->
+    </div>
+
+    <script>
+        // Extract URL parameter from the query string
+        const urlParams = new URLSearchParams(window.location.search);
+        const url = urlParams.get('url');
+
+        // Display the URL and analysis results
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.innerHTML = `
+            <p>URL: ${url}</p>
+            <!-- Include additional result details based on your analysis -->
+        `;
+    </script>
+</body>
+</html>  {% endcomment %}
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results</title>
+</head>
+<body>
+    {% csrf_token %}
+    <h1>Security Analysis Results</h1>
+
+    <div id="resultContainer">
+        <!-- Results will be displayed here -->
+    </div>
+
+    <script>
+        // Extract URL parameter from the query string
+        const urlParams = new URLSearchParams(window.location.search);
+        const url = urlParams.get('url');
+
+        // Fetch the test results from the backend
+        fetch(`http://localhost:8000/tester/test_directory_traversal_endpoint?url=${encodeURIComponent(url)}`)
+            .then(response => response.json())
+            .then(data => {
+                // Display the URL and analysis results
+                const resultContainer = document.getElementById('resultContainer');
+                resultContainer.innerHTML = `
+                    <p>URL: ${data.url}</p>
+                    <p>Is Vulnerable: ${data.is_vulnerable}</p>
+                    <!-- Include additional result details based on your analysis -->
+                `;
+            })
+            .catch(error => {
+                console.error('Error while fetching data:', error);
+                // Handle the error or display an error message as needed
+            });
+    </script>
+</body>
+</html> {% endcomment %}
+{% comment %} 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results</title>
+</head>
+<body>
+    {% csrf_token %}
+    <h1>Security Analysis Results</h1>
+
+    <div id="resultContainer">
+        <!-- Results will be displayed here -->
+    </div>
+
+    <script>
+        // Extract URL parameter from the query string
+        const urlParams = new URLSearchParams(window.location.search);
+        const url = urlParams.get('url');
+
+        // Fetch the test results from the backend
+        fetch(`http://localhost:8000/tester/test_directory_traversal_endpoint?url=${encodeURIComponent(url)}`)
+            .then(response => {
+                if (response.ok) {
+                    // If the response is successful (status code 200-299), return JSON
+                    return response.json();
+                } else {
+                    // If there is an error, return the HTML content directly
+                    return response.text();
+                }
+            })
+            .then(data => {
+                // Display the URL and analysis results
+                const resultContainer = document.getElementById('resultContainer');
+                if (typeof data === 'object') {
+                    // Handle JSON response
+                    resultContainer.innerHTML = `
+                        <p>URL: ${data.url}</p>
+                        <p>Is Vulnerable: ${data.is_vulnerable}</p>
+                        <!-- Include additional result details based on your analysis -->
+                    `;
+                } else {
+                    // Handle HTML response
+                    resultContainer.innerHTML = data;
+                }
+            })
+            .catch(error => {
+                console.error('Error while fetching data:', error);
+                // Handle the error or display an error message as needed
+            });
+    </script>
+</body>
+</html> {% endcomment %}
+
+{% comment %} ********************** {% endcomment %}
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results</title>
+</head>
+<body>
+    <h1>Security Analysis Results</h1>
+
+    <div id="resultContainer">
+        <!-- Results will be displayed here -->
+    </div> {% endcomment %}
+
+    {% comment %} <script>
+        // Extract URL parameter from the query string
+        const urlParams = new URLSearchParams(window.location.search);
+        const url = urlParams.get('url');
+
+        // Fetch analysis results from the backend
+        fetch(`http://localhost:8000/test_directory_traversal_endpoint?url=${encodeURIComponent(url)}`)
+            .then(response => response.json())
+            .then(data => {
+                // Display the URL and analysis results
+                const resultContainer = document.getElementById('resultContainer');
+                resultContainer.innerHTML = `
+                    <p>URL: ${data.url}</p>
+                    <p>Directory Traversal Vulnerability: ${data.is_vulnerable ? 'Detected' : 'Not Detected'}</p>
+                    <p>Details: ${data.details}</p>
+                `;
+            })
+            .catch(error => {
+                console.error('Error while fetching data:', error);
+                // Handle the error or display an error message as needed
+            });
+    </script> {% endcomment %}
+    {% comment %} <script>
+        // Extract URL parameter from the query string
+        const urlParams = new URLSearchParams(window.location.search);
+        const url = urlParams.get('url');
+    
+        // Fetch analysis results from the backend
+        fetch(`http://localhost:8000/test_directory_traversal_endpoint?url=${encodeURIComponent(url)}`)
+            .then(response => response.json())
+            .then(data => {
+                // Display the URL and analysis results
+                const resultContainer = document.getElementById('resultContainer');
+                resultContainer.innerHTML = `
+                    <p>URL: ${data.url}</p>
+                    <p>Directory Traversal Vulnerability: ${data.is_vulnerable ? 'Detected' : 'Not Detected'}</p>
+                    <p>Details: ${data.details}</p>
+                `;
+            })
+            .catch(error => {
+                console.error('Error while fetching data:', error);
+                // Handle the error or display an error message as needed
+            });
+    </script>
+    
+</body>
+</html> {% endcomment %}
+
+{% comment %} ******************* {% endcomment %}
+
+<!-- analyser.html -->
+{% comment %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results</title>
+</head>
+<body>
+    {% csrf_token %}
+    <h1>Security Analysis Results</h1>
+
+    <div id="resultContainer">
+        <p>URL: {{ result.url }}</p>
+        <p>Vulnerability: {% if result.is_vulnerable %} Detected {% else %} Not Detected {% endif %}</p>
+        <p>Details: {{ result.details }}</p>
+    </div>
+</body>
+</html> {% endcomment %}
+
+{% comment %} when we are applying xxe  {% endcomment %}
+
+<!-- analyser.html -->
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results</title>
+</head>
+<body>
+    {% csrf_token %}
+    <h1>Security Analysis Results</h1>
+
+    <div id="resultContainer">
+        <h2>Directory Traversal Test Result:</h2>
+        <p>URL: {{ result.url }}</p>
+        <p>Is Vulnerable: {{ result.is_vulnerable }}</p>
+        <p>Details: {{ result.details }}</p>
+
+        {% if result.details %}
+            <!-- Include additional result details based on your analysis -->
+        {% endif %}
+
+        <!-- Add a separator or line break for clarity -->
+        <hr>
+
+        <h2>XXE Test Result:</h2>
+        <!-- Assuming you have a similar structure for the XXE result -->
+        <p>URL: {{ xxe_result.url }}</p>
+        <p>Is Vulnerable: {{ xxe_result.is_vulnerable }}</p>
+        <p>Details: {{ xxe_result.details }}</p>
+
+        {% if xxe_result.details %}
+            <!-- Include additional result details based on your analysis -->
+        {% endif %}
+    </div>
+
+    <script>
+        // You can customize this JavaScript as needed
+        // For example, you might want to display results differently or include additional information.
+    </script>
+</body>
+</html> {% endcomment %}
+
+{% comment %} part 2 {% endcomment %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results</title>
+</head>
+<body>
+    {% csrf_token %}
+    <h1>Security Analysis Results</h1>
+
+    <div id="resultContainerDT">
+        <h2>Directory Traversal Test Result:</h2>
+        <p>URL: {{ result_dt.url }}</p>
+        <p>Is Vulnerable: {{ result_dt.is_vulnerable }}</p>
+        <p>Details: {{ result_dt.details }}</p>
+    </div>
+
+    <div id="resultContainerXXE">
+        <h2>XXE Test Result:</h2>
+        <p>URL: {{ result_xxe.url }}</p>
+        <p>Is Vulnerable: {{ result_xxe.is_vulnerable }}</p>
+        <p>Details: {{ result_xxe.details }}</p>
+    </div>
+
+    
+    <div id="resultContainerSMis">
+        <h2>SMis Test Result:</h2>
+        <p>URL: {{ result_sims.url }}</p>
+        <p>Is Vulnerable: {{ result_sims.is_vulnerable }}</p>
+        <p>Details: {{ result_sims.details }}</p>
+    </div>
+
+    
+    <div id="resultContainerXSS">
+        <h2>XSS Test Result:</h2>
+        <p> Location: {{ result_xss.location }}</p>
+        <p> Field: {{ result_xss.field }}</p>
+        <p> Value: {{ result_xss.value }}</p>
+                
+    {% comment %} {% else %}
+        <p>No potential XSS vulnerabilities found.</p>
+    {% endif %} {% endcomment %}
+    </div>
+
+    <div id="resultContainerCSRF">
+        <h2>CSRF Test Result:</h2>
+        <p>URL: {{ result_csrf.url }}</p>
+        <p>Is Vulnerable: {{ result_csrf.is_vulnerable }}</p>
+        <p>Details: {{ result_csrf.details }}</p>
+    </div>
+
+    <div id="resultContainerSessionFix">
+        <h2>Session Fixation Test Result:</h2>
+        <p>URL: {{ result_sessionfix.url }}</p>
+        <p>Is Vulnerable: {{ result_sessionfix.is_vulnerable }}</p>
+        <p>Details: {{ result_sessionfix.details }}</p>
+    </div>
+
+    <div id="resultContainerLFI">
+        <h2>LFITest Result:</h2>
+        <p>URL: {{ result_lfi.url }}</p>
+        <p>Is Vulnerable: {{ result_lfi.is_vulnerable }}</p>
+        <p>Details: {{ result_lfi.details }}</p>
+    </div>
+
+
+    <!-- Include additional result details based on your analysis -->
+
+</body>
+</html>

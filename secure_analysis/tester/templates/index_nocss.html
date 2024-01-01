@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Security Analysis Website</title>
+    <!-- Add your CSS styles here -->
+    <link rel="stylesheet" href="cssindex.css">
+</head>
+
+<body>
+{% csrf_token %}
+    <header>
+    <img src="your_logo.png" alt="Your Logo" width="100" height="100">
+    <h1>Your Security Analysis Website</h1>
+</header>
+
+
+{% comment %} ***************************************************** {% endcomment %}
+ <nav>
+    <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#documentation">Documentation</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav> 
+
+<section id="hero">
+    <img src="hero_image.jpg" alt="Hero Image">
+    <p>Welcome to our Security Analysis Platform</p>
+</section>
+
+<section id="url-input">
+    <h2>Enter the URL to Analyze</h2>
+    <form action="/tester/test_directory_traversal_endpoint" method="get">
+
+    {% comment %} <form action="/test_directory_traversal" method="post"> {% endcomment %}
+        {% csrf_token %}
+        <input type="url" name="url" placeholder="https://example.com" required>
+        <button type="submit">Submit</button>
+    </form>
+</section>
+
+<section id="instructions">
+    <h2>How to Use</h2>
+    <p>Provide a website URL above and click "Submit" to initiate the security analysis.</p>
+</section>
+{% comment %} 
+<section id="services">
+    <h2>Our Security Services</h2>
+    <ul>
+        <li>Automated Scanning</li>
+        <li>Manual Testing</li>
+        <li>Security Reports</li>
+    </ul>
+</section>
+
+<footer>
+    <ul>
+        <li><a href="#privacy">Privacy Policy</a></li>
+        <li><a href="#terms">Terms of Service</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+    </ul>
+    <div>
+        <p>&copy; 2023 Your Company</p>
+        <!-- Add social media icons or other footer content -->
+    </div>
+</footer> {% endcomment %}
+
+<!-- Your existing HTML file -->
+
+<!-- Add the following script to handle the form submission -->
+<script>
+    async function submitForm() {
+        <input type="url" id="urlInput" name="url" placeholder="https://example.com" required>
+        const urlInput = document.getElementById('urlInput').value;
+
+        try {
+            // Send the URL to the backend for vulnerability analysis
+           const response = await fetch(`http://localhost:8000/test_directory_traversal_endpoint?url=${encodeURIComponent(urlInput)}`);
+
+            const data = await response.json();
+
+            // Open a new window or tab with the analysis results
+            window.open(`http://localhost:8000/analysis-results?url=${encodeURIComponent(urlInput)}`, '_blank');
+        } catch (error) {
+            console.error('Error while fetching data:', error);
+            // Handle the error or display an error message as needed
+        }
+    }
+</script>
+
+</body>
+</html>

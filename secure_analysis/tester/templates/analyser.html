@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  {% load static %}
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Results!</title>
+<!--
+
+Template 2096 Individual
+
+https://www.tooplate.com/view/2096-individual
+
+-->
+  {% comment %} <link rel="stylesheet" href="{% static "https://fonts.googleapis.com/css?family=Open+Sans:300,400" %}">  
+   {% endcomment %}
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">
+
+  <link rel="stylesheet" href="{% static "font-awesome-4.5.0/css_analyser/font-awesome.min.css" %}">                
+  <link rel="stylesheet" href="{% static "css_analyser/bootstrap.min.css" %}">
+  <link rel="stylesheet" type="text/css" href="{% static "slick/slick.css" %}"/>
+  <link rel="stylesheet" type="text/css" href="{% static "slick/slick-theme.css" %}"/>
+  <link rel="stylesheet" href="{% static "css_analyser/tooplate-style.css" %}"><!-- tooplate style -->
+  <!-- Magnific Popup core CSS file -->
+  <link rel="stylesheet" href="{% static "css_analyser/magnific-popup.css" %}">
+  
+
+  {% comment %} <section id="home" > {% endcomment %}
+    <div class="heading"><h2>Security Analysis Result </h2>
+      <div class="url"> {{ result_dt.url }}</div> </div>
+
+        <div id="tm-section-4" class="parallax-window" data-parallax="scroll" data-image-src='{% static "secure_analysis/static/img_analyser/analysis3.jpg" %}'>
+          <div class="row tm-page-4-content">
+            {% comment %} <img src={% static "img_analyser/analysis2.jpg" %}> </img> {% endcomment %}
+             
+            <article  class="col-xs-6 col-md-4 tm-bg-white-transparent">
+              <header><h3>Directory Traversal</h3></header>
+              <p>Is Vulnerable: {{ result_dt.is_vulnerable }}</p>
+              <p>Details: {{ result_dt.details }}</p>
+            </article>
+
+            <article  class="col-xs-6 col-md-4 tm-bg-white-transparent">
+              <header><h3>XXE Test Result</h3></header>
+              <p>Is Vulnerable: {{ result_xxe.is_vulnerable }}</p>
+              <p>Details: {{ result_xxe.details }}</p>
+            </article>
+
+            <article  class="col-xs-6 col-md-4 tm-bg-white-transparent">
+              <header><h3>Security Misconfiguration</h3></header>
+              <p>Is Vulnerable: {{ result_sims.is_vulnerable }}</p>
+              <p>Details: {{ result_sims.details }}</p>
+            </article>
+
+            <article  class="col-xs-6 col-md-4 tm-bg-white-transparent">
+              <header><h3>Cross Site Scripting</h3></header>
+              <p> Location: {{ result_xss.location }}</p>
+              <p> Field: {{ result_xss.field }}</p>
+              <p> Value: {{ result_xss.value }}</p>
+            </article>
+
+            <article  class="col-xs-6 col-md-4 tm-bg-white-transparent">
+              <header><h3>CSRF</h3></header>
+              <p>Is Vulnerable: {{ result_csrf.is_vulnerable }}</p>
+              <p>Details: {{ result_csrf.details }}</p>
+            </article>
+
+            <article  class="col-xs-6 col-md-4 tm-bg-white-transparent">
+              <header><h3>Session Fixation</h3></header>
+              <p>Is Vulnerable: {{ result_sessionfix.is_vulnerable }}</p>
+              <p>Details: {{ result_sessionfix.details }}</p>
+            </article>
+
+            <article  class="col-xs-6 col-md-4 tm-bg-white-transparent">
+              <header><h3>Local File Inclusion</h3></header>
+              <p>Is Vulnerable: {{ result_lfi.is_vulnerable }}</p>
+              <p>Details: {{ result_lfi.details }}</p>
+            </article>
+          
+            
+
+          <!-- load JS files -->
+          <script src="{% static "js_analyser/jquery-1.11.3.min.js" %}" defer></script>        <!-- jQuery (https://jquery.com/download/) -->
+          <script src="{% static "js_analyser/parallax.min.js" %}" defer></script>
+     
+          <script type="text/javascript" src="slick/slick.min.js"></script> 
+          <!-- Slick Carousel -->
+
+          <!-- Magnific Popup core JS file -->
+          <script src="{% static "js_analyser/jquery.magnific-popup.min.js" %}"defer></script>
+          
+          
+          <script>
+
+            function setCarousel() {
+
+              var slider = $('.tm-img-slider');
+
+              if (slider.hasClass('slick-initialized')) {
+                slider.slick('destroy');
+              }
+
+              if($(window).width() > 991){
+                  // Slick carousel
+                  slider.slick({
+                    dots: true,
+                    infinite: true,
+                    slidesToShow: 4,
+                    slidesToScroll: 1
+                  });
+                }
+                else {
+                 slider.slick({
+                  dots: true,
+                  infinite: true,
+                  slidesToShow: 2,
+                  slidesToScroll: 1
+                });
+               }
+             }
+
+             $(document).ready(function(){
+
+              setCarousel();
+              $('.tm-img-slider').magnificPopup({
+                delegate: 'a', // child items selector, by clicking on it popup will open
+                type: 'image'
+                // other options
+
+              });
+
+              $(window).resize(function() {
+                setCarousel();
+              });
+            });
+
+          </script>
+        </body>
+        </html>

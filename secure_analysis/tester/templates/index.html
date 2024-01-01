@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="author" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<title>Security Analysis </title>
+
+
+<link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+<link rel="stylesheet" href="{% static "css/animate.css" %}">
+<link rel="stylesheet" href="{% static "css/magnific-popup.css" %}">
+<link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
+
+<!-- MAIN CSS -->
+<link rel="stylesheet" href="/static/css/tooplate-style.css">
+
+<script src="{% static 'js/bootstrap.min.js' %}" defer></script>
+<script src="{% static 'js/custom.js' %}" defer></script>
+<script src="{% static 'js/jquery.magnific-popup.min.js' %}" defer></script>
+<script src="{% static 'js/jquery.parallax.js' %}" defer></script>
+<script src="{% static 'js/jquery.js' %}" defer></script>
+<script src="{% static 'js/magnific-popup-options.js' %}" defer></script>
+<script src="{% static 'js/smoothscroll.js' %}" defer></script>
+<script src="{% static 'js/wow.min.js' %}" defer></script>
+
+
+<style>
+     input[type="url"] {
+          width: 65%;
+          font-size: 12px;
+          font-weight: bold;
+          letter-spacing: 1.5px;
+          margin-top: 42px;
+          padding: 18px 32px;
+         
+          box-sizing: border-box;
+          border: 1px solid #ccc;
+          border-radius: 45px 0px 0px 45px;
+          background-color: #f8f8f8;
+          transition: 0.3s;
+          -webkit-transition: all ease-in-out 0.4s;
+          transition: all ease-in-out 0.4s
+      }
+      input[type="url"]:focus {
+          border-color: #0096ff;
+          box-shadow: 0 0 5px #0096ff;
+      }
+
+      /* CSS code to style the submit button */
+      input[type="submit"] {
+          width: auto;
+          padding: 12px 20px;
+          margin: 8px 0;
+          box-sizing: border-box;
+          border: none;
+          border-radius: 4px;
+          background-color: #0096ff;
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+          transition: 0.3s;
+      }
+      input[type="submit"]:hover {
+          background-color: #0074c6;
+     }
+ </style>
+</head>
+<body>
+
+<!-- PRE LOADER -->
+<div class="preloader">
+     <div class="spinner">
+          <span class="spinner-rotate"></span>
+     </div>
+</div>
+
+
+<!-- HOME SECTION -->
+<section id="home" class="parallax-section">
+     <div class="container">
+          <div class="row">
+
+               <div class="col-md-offset-5 col-md-7 col-sm-12">
+                    <div class="home-thumb">
+                         <h1 class="wow fadeInUp" data-wow-delay="0.4s">Welcome to our Security Analysis Platform</h1>
+                         {% comment %} <img src = "{% static 'images/Application-security-cloud4c-webpage-1.jpg' %}"> {% endcomment %}
+                         <p class="wow fadeInUp white-color" data-wow-delay="0.6s">Enhance website security effortlessly. Input your URL to receive insightful analysis. Simple, efficient, and essential for safeguarding your web assets.</p>
+                         <section id="url-input">
+                              <form action="/tester/test_directory_traversal_endpoint" method="get">
+
+                                  <input type="url" name="url" placeholder="https://example.com" required>
+                                  <button type="submit"  class="wow fadeInUp smoothScroll btn btn-default section-btn" data-wow-delay="1s">Submit</button>
+                              </form>
+                          </section>
+                         <!-- <a href="#service" class="wow fadeInUp smoothScroll btn btn-default section-btn" data-wow-delay="1s">discover more</a> -->
+                    </div>
+               </div>
+
+          </div>
+     </div>
+</section>
+
+<script>
+     async function submitForm() {
+         <input type="url" id="urlInput" name="url" placeholder="https://example.com" required>
+         const urlInput = document.getElementById('urlInput').value;
+ 
+         try {
+             // Send the URL to the backend for vulnerability analysis
+            const response = await fetch(`http://localhost:8000/test_directory_traversal_endpoint?url=${encodeURIComponent(urlInput)}`);
+ 
+             const data = await response.json();
+ 
+             // Open a new window or tab with the analysis results
+             window.open(`http://localhost:8000/analysis-results?url=${encodeURIComponent(urlInput)}`, '_blank');
+         } catch (error) {
+             console.error('Error while fetching data:', error);
+             // Handle the error or display an error message as needed
+         }
+     }
+ </script>
+<!-- SERVICE SECTION -->
+<section id="service" class="parallax-section">
+     <div class="container">
+          <div class="row">
+
+               <div class="wow fadeInUp section-title" data-wow-delay="0.2s">
+                    <!-- SECTION TITLE -->
+                    <h2>Comprehensive Security Analysis Unleashed!</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur venenatis tincidunt.</p>
+               </div>
+
+               <div class="col-md-3 col-sm-6 wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="service-thumb">
+                         <i class="fa fa-home"></i>
+                         <h4>Directory Traversal</h4>
+                         <p>Spot directory traversal flaws, safeguard your server by identifying and addressing potential vulnerabilities</p>
+                    </div>
+               </div>
+
+               <div class="col-md-3 col-sm-6 wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="service-thumb">
+                         <i class="fa fa-lock"></i>
+                         <h4 >XXE</h4>
+                         <p>Detect XML External Entity (XXE) issues, securing your web application against data exposure threats.</p>
+                    </div>
+               </div>
+
+               <div class="col-md-3 col-sm-6 wow fadeInUp" data-wow-delay="0.6s">
+                    <div class="service-thumb">
+                         <i class="fa fa-lightbulb-o"></i>
+                         <h4>Security Misconfiguration</h4>
+                         <p>Expose misconfigurations that risk server and user data exposure, enhancing your web application security.</p>
+                    </div>
+               </div>
+
+               <div class="col-md-3 col-sm-6 wow fadeInUp" data-wow-delay="0.8s">
+                    <div class="service-thumb">
+                         <i class="fa fa-clone"></i>
+                         <h4>LFI</h4>
+                         <p>Pinpoint Local File Inclusion (LFI) risks, fortifying your defenses against unauthorized data access threats.</p>
+                    </div>
+               </div>
+               <div class="col-md-3 col-sm-6 wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="service-thumb">
+                         <i class="fa fa-smile-o"></i>
+                         <h4>SQLI</h4>
+                         <p>Examine for potential SQL injection risks compromising your database, securing sensitive data transactions.</p>
+                    </div>
+               </div>
+
+               <div class="col-md-3 col-sm-6 wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="service-thumb">
+                         <i class="fa fa-camera"></i>
+                         <h4 >XSS</h4>
+                         <p>"Evaluate Cross-Site Scripting (XSS) threats, ensuring robust protection against malicious script injections on your site.</p>
+                    </div>
+               </div>
+
+               <div class="col-md-3 col-sm-6 wow fadeInUp" data-wow-delay="0.6s">
+                    <div class="service-thumb">
+                         <i class="fa fa-lightbulb-o"></i>
+                         <h4>CSRF</h4>
+                         <p>Detect CSRF threats, protecting your web application from unauthorized actions performed on behalf of authenticated users, ensuring robust security.</p>
+                    </div>
+               </div>
+
+               <div class="col-md-3 col-sm-6 wow fadeInUp" data-wow-delay="0.8s">
+                    <div class="service-thumb">
+                         <i class="fa fa-clone"></i>
+                         <h4>Session Fixation</h4>
+                         <p>Identify session fixation vulnerabilities, safeguarding your web application from unauthorized user access and maintaining secure user sessions.</p>
+                    </div>
+               </div>
+
+               
+          </div>
+     </div>
+</section>
+
+
+<!-- SCRIPTS -->
+{% comment %} <script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.parallax.js"></script>
+<script src="js/smoothscroll.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/magnific-popup-options.js"></script>
+<script src="js/wow.min.js"></script>
+<script src="js/custom.js"></script> {% endcomment %}
+
+<script src="{% static 'js/bootstrap.min.js' %}" defer></script>
+<script src="{% static 'js/custom.js' %}" defer></script>
+<script src="{% static 'js/jquery.magnific-popup.min.js' %}" defer></script>
+<script src="{% static 'js/jquery.parallax.js' %}" defer></script>
+<script src="{% static 'js/jquery.js' %}" defer></script>
+<script src="{% static 'js/magnific-popup-options.js' %}" defer></script>
+<script src="{% static 'js/smoothscroll.js' %}" defer></script>
+<script src="{% static 'js/wow.min.js' %}" defer></script>
+
+</body>
+</html>
