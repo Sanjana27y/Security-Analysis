@@ -18,7 +18,7 @@ def test_csrf(url):
             csrf_token_input = form.find('input', {'name': 'csrfmiddlewaretoken'})
             if csrf_token_input:
                 csrf_token_value = csrf_token_input.get('value')
-                # You may want to validate the CSRF token more thoroughly depending on the website
+                
                 if csrf_token_value:
                     # print(f"CSRF Token found in form: {url}")
                     return {'url': url, 'is_vulnerable': True, 'details': 'CSRF Token found in the path'}
