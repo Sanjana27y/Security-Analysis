@@ -1,3 +1,34 @@
+import requests
+from defusedxml import ElementTree as DET
+
+def test_xxe(url):
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        xml_string = response.text
+
+        # Check for XXE vulnerability
+        tree = DET.fromstring(xml_string)
+
+        # Check for external entities in the DTD
+        dtd_content = tree.docinfo.internalDTD
+        if dtd_content and 'external-entity' in dtd_content:
+            return {'url': url, 'is_vulnerable': True, 'details': 'XXE vulnerability detected (DTD external entity)'}
+
+        # Check for external entities in the document content
+        entities = tree.findall('.//external-entity')
+        if entities:
+            return {'url': url, 'is_vulnerable': True, 'details': 'XXE vulnerability detected (document content)'}
+
+        # No XXE vulnerability detected
+        return {'url': url, 'is_vulnerable': False, 'details': 'No XXE vulnerability detected'}
+
+    except Exception as e:
+        # XXE vulnerability detected
+        return {'url': url, 'is_vulnerable': True, 'details': f'XXE vulnerability detected: {str(e)}'}
+
+
+
 # import requests
 # from defusedxml import ElementTree as DET
 
@@ -46,26 +77,26 @@
 
 
 
-import requests
-from defusedxml import ElementTree as DET
+# import requests
+# from defusedxml import ElementTree as DET
 
-def test_xxe(url):
-    try:
-        response = requests.get(url)
-        response.raise_for_status()
-        xml_string = response.text
+# def test_xxe(url):
+#     try:
+#         response = requests.get(url)
+#         response.raise_for_status()
+#         xml_string = response.text
 
-        # Check for XXE vulnerability
-        tree = DET.fromstring(xml_string)
-        entities = tree.findall('.//external-entity')
+#         # Check for XXE vulnerability
+#         tree = DET.fromstring(xml_string)
+#         entities = tree.findall('.//external-entity')
 
-        if entities:
-            return {'url': url, 'is_vulnerable': True, 'details': 'XXE vulnerability detected'}
-        else:
-            return {'url': url, 'is_vulnerable': False, 'details': 'No XXE vulnerability detected'}
-    except Exception as e:
-        # XXE vulnerability detected
-        return {'url': url, 'is_vulnerable': True, 'details': f'XXE vulnerability detected: {str(e)}'}
+#         if entities:
+#             return {'url': url, 'is_vulnerable': True, 'details': 'XXE vulnerability detected'}
+#         else:
+#             return {'url': url, 'is_vulnerable': False, 'details': 'No XXE vulnerability detected'}
+#     except Exception as e:
+#         # XXE vulnerability detected
+#         return {'url': url, 'is_vulnerable': True, 'details': f'XXE vulnerability detected: {str(e)}'}
 
 
 

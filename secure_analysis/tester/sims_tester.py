@@ -10,17 +10,17 @@ def test_security_misconfigurations(url):
         # Check Server Header
         server_header = response.headers.get('Server')
         if server_header:
-            return {'url': url, 'is_vulnerable': False, 'details': f"The server header is exposed: {server_header}"}
+            return {'url': url, 'is_vulnerable': True, 'details': f"The server header is exposed: {server_header}"}
 
         # Check X-Frame-Options Header
         x_frame_options = response.headers.get('X-Frame-Options')
         if not x_frame_options or x_frame_options.lower() not in ['deny', 'sameorigin']:
-            return {'url': url, 'is_vulnerable': False, 'details': "The X-Frame-Options header is not set correctly or not present"}
+            return {'url': url, 'is_vulnerable': True, 'details': "The X-Frame-Options header is not set correctly or not present"}
 
-        # Add more checks for other security misconfigurations as needed
+  
 
         # If no misconfigurations are detected
-        return {'url': url, 'is_vulnerable': True, 'details': 'No security misconfigurations detected'}
+        return {'url': url, 'is_vulnerable': False, 'details': 'No security misconfigurations detected'}
 
     except requests.exceptions.RequestException as e:
         # Handle exceptions (e.g., network error)
