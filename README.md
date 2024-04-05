@@ -1,5 +1,13 @@
 # Security-Analysis
 Analyze the security of a website by identifying potential vulnerabilities just by entering the website URL
+Vulnerabilities that can be detected are:
+1. CSRF
+2. Directory Traversal
+3. XSS
+4. XML- External Entity
+5. Local File Inclusion
+6. Session Fixation 
+7. Security Misconfiguration
 
 ## Project Setup
 Follow the below steps to run the project.
